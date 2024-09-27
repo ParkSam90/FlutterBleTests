@@ -1,4 +1,4 @@
-# flutter_ble_gitclone
+# flutter_ble_scanner
 
 A new Flutter project.
 
