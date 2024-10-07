@@ -1,4 +1,4 @@
-# flutter_ble_scanner
+# mCandle_Scanner
 
 A new Flutter project.
 

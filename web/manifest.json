@@ -1,6 +1,6 @@
 {
-    "name": "flutter_ble_gitclone",
-    "short_name": "flutter_ble_gitclone",
+    "name": "mCandle_Scanner",
+    "short_name": "mCandle_Scanner",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

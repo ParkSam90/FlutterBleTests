@@ -1,4 +1,4 @@
-package com.example.flutter_ble_gitclone
+package com.example.mCandle_Scanner
 
 import io.flutter.embedding.android.FlutterActivity
 
