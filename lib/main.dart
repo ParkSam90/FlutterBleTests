@@ -92,7 +92,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   /* 장치의 MAC 주소 위젯  */
   Widget deviceMacAddress(ScanResult r) {
-    return Text(r.device.id.id);
+    return Text(r.device.remoteId.str);
+  }
+
+  /* 장치의 UUID 위젯 */
+  Widget deviceUUid(ScanResult r) {
+    String name = '';
+    name = r.advertisementData.serviceUuids.toString();
+    return Text(name);
   }
 
   /* 장치의 명 위젯  */
@@ -139,8 +146,9 @@ class _MyHomePageState extends State<MyHomePage> {
       onTap: () => onTap(r),
       leading: leading(r),
       title: deviceName(r),
-      subtitle: deviceMacAddress(r),
+      // subtitle: deviceMacAddress(r),
       trailing: deviceSignal(r),
+      subtitle: deviceMacAddress(r),
     );
   }
 

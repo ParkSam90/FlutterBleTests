@@ -156,7 +156,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
                   await c.setNotifyValue(true);
                   // 받을 데이터 변수 Map 형식으로 키 생성
                   notifyDatas[c.uuid.toString()] = List.empty();
-                  c.value.listen((value) {
+                  c.lastValueStream.listen((value) {
                     // 데이터 읽기 처리!
                     print('${c.uuid}: $value');
                     setState(() {
@@ -191,12 +191,50 @@ class _DeviceScreenState extends State<DeviceScreen> {
     } catch (e) {}
   }
 
+  String getCustomUUid(String uuid) {
+    if (uuid.length >= 16) {
+      return uuid.substring(0, 16); // 앞 16자리 가져오기
+    } else {
+      return uuid; // 만약 UUID가 16자리보다 짧으면 전체 반환
+    }
+  }
+
+  /* Service UUID의 17번째 자리 가져오는 함수 */
+  String getUseKakao(String uuid) {
+    if (uuid.length >= 17) {
+      return uuid[16]; // 17번째 문자 가져오기 (index는 0부터 시작)
+    } else {
+      return ''; // 만약 UUID가 17자리보다 짧으면 빈 문자열 반환
+    }
+  }
+
+  // String formatString(String input) {
+  //   // 각 구분자의 길이
+  //   List<int> segmentLengths = [8, 4, 4, 4, 12];
+  //   int startIndex = 0;
+  //   List<String> segments = [];
+
+  //   // 각 길이에 맞춰서 문자열을 자른 후 리스트에 추가
+  //   for (int length in segmentLengths) {
+  //     segments.add(input.substring(startIndex, startIndex + length));
+  //     startIndex += length;
+  //   }
+
+  //   // 리스트를 하이픈으로 합쳐서 최종 문자열 반환
+  //   return segments.join('-');
+  // }
+
+  String formatString(String input) {
+    // 하이픈(-)을 제거한 문자열 반환
+    return input.replaceAll('-', '');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         /* 장치명 */
-        title: Text(widget.device.name),
+        title: Text(widget.device.platformName),
       ),
       body: Center(
           child: Column(
@@ -282,10 +320,27 @@ class _DeviceScreenState extends State<DeviceScreen> {
 
   /* Service UUID 위젯  */
   Widget serviceUUID(BluetoothService r) {
-    String name = '';
-    name = r.uuid.toString();
-    return Text(name);
+    String uuid = r.uuid.toString();
+    // String first16 = getCustomUUid(uuid);
+    // String seventeenth = getUseKakao(uuid);
+    String formatUuid = formatString(uuid);
+    String first16 = getCustomUUid(formatUuid);
+    String seventeenth = getUseKakao(formatUuid);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Service UUID :: $uuid'),
+        Text('membership card number :: $first16'),
+        Text('Kakao Pay Y/N :: $seventeenth'),
+      ],
+    );
   }
+  // Widget serviceUUID(BluetoothService r) {
+  //   String name = '';
+  //   name = r.uuid.toString();
+  //   return Text('Service UUID :: $name');
+  // }
 
   /* Service 정보 아이템 위젯 */
   Widget listItem(BluetoothService r) {
