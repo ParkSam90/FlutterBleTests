@@ -9,7 +9,7 @@ import 'views.dart';
 final routerConfig = GoRouter(
   redirect: (context, state) {
     if (state.matchedLocation == '/') {
-      return '/central';
+      return '/peripheral';
     }
     return null;
   },
@@ -18,6 +18,7 @@ final routerConfig = GoRouter(
       // builder: (context, state, navigationShell) {
       //   return HomeView(navigationShell: navigationShell);
       // },
+
       builder: (context, state, navigationShell) => navigationShell,
       navigatorContainerBuilder: (context, navigationShell, children) {
         final navigators = children.mapIndexed(
@@ -25,7 +26,7 @@ final routerConfig = GoRouter(
             if (index == 0) {
               return ViewModelBinding(
                 viewBuilder: (context) => element,
-                viewModelBuilder: (context) => CentralManagerViewModel(),
+                viewModelBuilder: (context) => PeripheralManagerViewModel(),
               );
             } else {
               return element;
@@ -38,34 +39,48 @@ final routerConfig = GoRouter(
         );
       },
       branches: [
+        // StatefulShellBranch(
+        //   routes: [
+        //     GoRoute(
+        //       path: '/central',
+        //       builder: (context, state) {
+        //         return const CentralManagerView();
+        //       },
+        //       routes: [
+        //         GoRoute(
+        //           path: ':uuid',
+        //           builder: (context, state) {
+        //             final uuidValue = state.pathParameters['uuid']!;
+        //             final uuid = UUID.fromString(uuidValue);
+        //             final viewModel =
+        //                 ViewModel.of<CentralManagerViewModel>(context);
+        //             final eventArgs = viewModel.discoveries.firstWhere(
+        //                 (discovery) => discovery.peripheral.uuid == uuid);
+        //             return ViewModelBinding(
+        //               viewBuilder: (context) => PeripheralView(),
+        //               viewModelBuilder: (context) =>
+        //                   PeripheralViewModel(eventArgs),
+        //             );
+        //           },
+        //         ),
+        //       ],
+        //     ),
+        //   ],
+        // ),
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/central',
+              path: '/peripheral',
               builder: (context, state) {
-                return const CentralManagerView();
+                return ViewModelBinding(
+                  viewBuilder: (context) => const PeripheralManagerView(),
+                  viewModelBuilder: (context) => PeripheralManagerViewModel(),
+                );
               },
-              routes: [
-                GoRoute(
-                  path: ':uuid',
-                  builder: (context, state) {
-                    final uuidValue = state.pathParameters['uuid']!;
-                    final uuid = UUID.fromString(uuidValue);
-                    final viewModel =
-                        ViewModel.of<CentralManagerViewModel>(context);
-                    final eventArgs = viewModel.discoveries.firstWhere(
-                        (discovery) => discovery.peripheral.uuid == uuid);
-                    return ViewModelBinding(
-                      viewBuilder: (context) => PeripheralView(),
-                      viewModelBuilder: (context) =>
-                          PeripheralViewModel(eventArgs),
-                    );
-                  },
-                ),
-              ],
             ),
           ],
         ),
+
         StatefulShellBranch(
           routes: [
             GoRoute(

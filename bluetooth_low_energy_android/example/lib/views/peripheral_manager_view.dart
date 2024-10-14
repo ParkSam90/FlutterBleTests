@@ -16,7 +16,7 @@ class PeripheralManagerView extends StatelessWidget {
     final advertising = viewModel.advertising;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Peripheral Manager'),
+        title: const Text('mCandle Server App'),
         actions: [
           TextButton(
             onPressed: state == BluetoothLowEnergyState.poweredOn

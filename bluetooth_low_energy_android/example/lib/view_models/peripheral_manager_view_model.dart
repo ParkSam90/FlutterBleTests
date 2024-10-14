@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:bluetooth_low_energy_android_example/const/data.dart';
 import 'package:bluetooth_low_energy_platform_interface/bluetooth_low_energy_platform_interface.dart';
 import 'package:bluetooth_low_energy_android_example/models.dart';
 import 'package:clover/clover.dart';
 import 'package:logging/logging.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class PeripheralManagerViewModel extends ViewModel {
   final PeripheralManager _manager;
@@ -101,10 +103,12 @@ class PeripheralManagerViewModel extends ViewModel {
       return;
     }
     await _manager.removeAllServices();
+    final storage = FlutterSecureStorage();
+    final testUuid = await storage.read(key: NEW_UUID);
     final elements = List.generate(100, (i) => i % 256);
     final value = Uint8List.fromList(elements);
     final service = GATTService(
-      uuid: UUID.short(100),
+      uuid: UUID.fromString('$testUuid'),
       isPrimary: true,
       includedServices: [],
       characteristics: [
@@ -132,7 +136,7 @@ class PeripheralManagerViewModel extends ViewModel {
     );
     await _manager.addService(service);
     final advertisement = Advertisement(
-      name: 'BLE-12138',
+      name: 'mCandle Server App',
       manufacturerSpecificData: [
         ManufacturerSpecificData(
           id: 0x2e19,

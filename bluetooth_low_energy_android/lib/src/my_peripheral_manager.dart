@@ -157,6 +157,8 @@ final class MyPeripheralManager extends PlatformPeripheralManager
   @override
   Future<void> startAdvertising(Advertisement advertisement) async {
     final nameArgs = advertisement.name;
+    final uuidArgs = advertisement.serviceUUIDs;
+
     if (nameArgs != null) {
       logger.info('setName: $nameArgs');
       final newNameArgs = await _api.setName(nameArgs);
@@ -165,6 +167,11 @@ final class MyPeripheralManager extends PlatformPeripheralManager
             'Name changed, but $newNameArgs is different from $nameArgs');
       }
     }
+    logger.info('test    uuid : $cccUUID');
+    if (uuidArgs != null) {
+      logger.info('testUUID: $uuidArgs');
+    }
+
     final settingsArgs = MyAdvertiseSettingsArgs(
       modeArgs: MyAdvertiseModeArgs.balanced,
       connectableArgs: true,

@@ -49,25 +49,25 @@ class _HomeViewState extends State<HomeView> {
         },
         itemCount: navigators.length,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          navigationShell.goBranch(
-            index,
-            initialLocation: index == navigationShell.currentIndex,
-          );
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.radar),
-            label: 'Central',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.sensors),
-            label: 'Peripheral',
-          ),
-        ],
-        currentIndex: widget.navigationShell.currentIndex,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   onTap: (index) {
+      //     navigationShell.goBranch(
+      //       index,
+      //       initialLocation: index == navigationShell.currentIndex,
+      //     );
+      //   },
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.sensors),
+      //       label: 'Peripheral',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.sensors),
+      //       label: 'Peripheral',
+      //     ),
+      //   ],
+      //   currentIndex: widget.navigationShell.currentIndex,
+      // ),
     );
   }
 

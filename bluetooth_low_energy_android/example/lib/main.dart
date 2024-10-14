@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:bluetooth_low_energy_android_example/spalsh.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-
-import 'router_config.dart';
 
 void main() {
   runZonedGuarded(onStartUp, onCrashed);
@@ -38,14 +37,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: routerConfig,
-      theme: ThemeData.light().copyWith(
-        materialTapTargetSize: MaterialTapTargetSize.padded,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'mCandle Server App',
+      theme: ThemeData(
+        fontFamily: 'NotoSans',
       ),
-      darkTheme: ThemeData.dark().copyWith(
-        materialTapTargetSize: MaterialTapTargetSize.padded,
-      ),
+      home: Splash(),
+      // routerConfig: routerConfig,
+      // theme: ThemeData.light().copyWith(
+      //   materialTapTargetSize: MaterialTapTargetSize.padded,
+      // ),
+      // darkTheme: ThemeData.dark().copyWith(
+      //   materialTapTargetSize: MaterialTapTargetSize.padded,
+      // ),
     );
   }
 }
