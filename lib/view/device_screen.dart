@@ -208,22 +208,6 @@ class _DeviceScreenState extends State<DeviceScreen> {
     }
   }
 
-  // String formatString(String input) {
-  //   // 각 구분자의 길이
-  //   List<int> segmentLengths = [8, 4, 4, 4, 12];
-  //   int startIndex = 0;
-  //   List<String> segments = [];
-
-  //   // 각 길이에 맞춰서 문자열을 자른 후 리스트에 추가
-  //   for (int length in segmentLengths) {
-  //     segments.add(input.substring(startIndex, startIndex + length));
-  //     startIndex += length;
-  //   }
-
-  //   // 리스트를 하이픈으로 합쳐서 최종 문자열 반환
-  //   return segments.join('-');
-  // }
-
   String formatString(String input) {
     // 하이픈(-)을 제거한 문자열 반환
     return input.replaceAll('-', '');
