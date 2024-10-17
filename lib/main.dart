@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int rssiThreshold = -71; // 기본 rssi 값
   int scanDuration = 60; // 기본 스캔 시간
 
-  // FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
+  // FlutterBluePlus flutterBlue = FlutterBluePlus.instance;c
   List<ScanResult> scanResultList = [];
   bool _isScanning = false;
   List<BluetoothService> services = [];
@@ -80,6 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 scanResultList.add(result);
               }
               connectToDevice(result);
+            }
+            //스캔결과가 3개 이상이면 for문 종료.
+            if (3 < scanResultList.length) {
+              break;
             }
           }
         });
