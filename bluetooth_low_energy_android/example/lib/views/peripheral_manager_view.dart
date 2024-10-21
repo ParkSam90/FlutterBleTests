@@ -3,6 +3,9 @@ import 'package:bluetooth_low_energy_android_example/view_models.dart';
 import 'package:clover/clover.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import '../spalsh.dart';
+import 'package:bluetooth_low_energy_android_example/const/data.dart';
+import 'package:restart_app/restart_app.dart';
 
 import 'log_view.dart';
 
@@ -29,6 +32,14 @@ class PeripheralManagerView extends StatelessWidget {
                   }
                 : null,
             child: Text(advertising ? 'END' : 'BEGIN'),
+          ),
+          TextButton(
+            onPressed: () async {
+              await viewModel.stopAdvertising();
+              deleteUuid();
+              restartApp();
+            },
+            child: Text('카드번호 변경'),
           ),
         ],
       ),
@@ -72,5 +83,14 @@ class PeripheralManagerView extends StatelessWidget {
         ),
       );
     }
+  }
+
+  // UUID 삭제 함수 (필요시 사용)
+  void deleteUuid() async {
+    await storage.deleteAll();
+  }
+
+  void restartApp() {
+    Restart.restartApp();
   }
 }

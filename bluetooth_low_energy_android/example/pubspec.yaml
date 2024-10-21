@@ -17,6 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  restart_app: ^1.3.2
   bluetooth_low_energy_platform_interface: ^6.0.0
   bluetooth_low_energy_android:
     # When depending on this package from a real application you should use:

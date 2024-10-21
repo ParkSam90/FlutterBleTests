@@ -153,6 +153,7 @@ class PeripheralManagerViewModel extends ViewModel {
     if (!_advertising) {
       return;
     }
+    await _manager.removeAllServices();
     await _manager.stopAdvertising();
     _advertising = false;
     notifyListeners();
