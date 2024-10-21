@@ -46,11 +46,19 @@ class _MyHomePageState extends State<MyHomePage> {
     initBle();
   }
 
+  // void initBle() {
+  //   // BLE 스캔 상태 얻기 위한 리스너
+  //   FlutterBluePlus.isScanning.listen((isScanning) {
+  //     _isScanning = isScanning;
+  //     setState(() {});
+  //   });
+  // }
   void initBle() {
-    // BLE 스캔 상태 얻기 위한 리스너
+    // BLE 스캔 상태 리스너
     FlutterBluePlus.isScanning.listen((isScanning) {
-      _isScanning = isScanning;
-      setState(() {});
+      setState(() {
+        _isScanning = isScanning;
+      });
     });
   }
 
@@ -59,6 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
   */
   scan() async {
     if (!_isScanning) {
+      setState(() {
+        scanResultList.clear(); // 스캔 결과 리스트 초기화
+      });
       // 스캔 중이 아니라면
       // 기존에 스캔된 리스트 삭제
       scanResultList.clear();
@@ -146,14 +157,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget deviceSignal(ScanResult r) {
-    return Text(r.rssi.toString());
+    return Text(r.rssi.toString(), style: TextStyle(fontSize: 16));
   }
 
   /* 장치 아이템 위젯 */
   Widget listItem(ScanResult r) {
     return ListTile(
-      onTap: () => connectToDevice(r), // 장치를 탭하면 연결 시도
+      // onTap: () => connectToDevice(r), // 장치를 탭하면 연결 시도
       leading: Icon(Icons.bluetooth),
+      iconColor: Colors.cyan,
       title:
           Text(r.device.advName.isEmpty ? 'Unknown Device' : r.device.advName),
       // subtitle: Text(s.uuid.toString()),
@@ -187,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return CircleAvatar(
       child: Icon(
         Icons.bluetooth,
-        color: Colors.white,
+        color: Colors.cyan,
       ),
       backgroundColor: Colors.cyan,
     );
@@ -238,6 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: const Color.fromARGB(255, 0, 145, 212),
       ),
       body: Center(
         /* 장치 리스트 출력 */
